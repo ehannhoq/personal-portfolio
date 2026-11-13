@@ -56,8 +56,8 @@ export default function Home() {
       <div className="sticky top-0 w-full h-screen flex items-center justify-center">
         {scrollProgress != 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1,
               ease: [0.22, 1, 0.36, 1]
@@ -93,8 +93,8 @@ export default function Home() {
 
         {scrollProgress == 1 && (
           <motion.div
-            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1,
               ease: [0.22, 1, 0.36, 1]
@@ -115,8 +115,8 @@ export default function Home() {
 
         {scrollProgress == 2 && (
           <motion.div
-            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1,
               ease: [0.22, 1, 0.36, 1]
@@ -129,8 +129,8 @@ export default function Home() {
 
         {scrollProgress == 3 && (
           <motion.div
-            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1,
               ease: [0.22, 1, 0.36, 1]
@@ -143,8 +143,8 @@ export default function Home() {
 
         {scrollProgress == 4 && (
           <motion.div
-            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1,
               ease: [0.22, 1, 0.36, 1]

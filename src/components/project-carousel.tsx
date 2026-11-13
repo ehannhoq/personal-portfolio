@@ -109,7 +109,7 @@ export default function ProjectCarousel() {
             WebkitMask: `url(/chevron_right.svg) center / contain no-repeat`,
           }}
         />
-        <motion.div style={{ rotate: rotation }} className="relative -top-5">
+        <motion.div style={{ rotate: rotation, willChange: 'transfrom' }} className="relative -top-5">
           {Array.from(
             { length: Math.round(360 / degree) },
             (_, i) => PROJECTS[i % PROJECTS.length],
@@ -130,13 +130,17 @@ export default function ProjectCarousel() {
 
       <div className="w-[30%] h-[60%]">
         <ReactiveCard>
-          <div className="w-full h-full bg-white/10 font-mono rounded-2xl overflow-hidden">
+          <div className="w-full h-full bg-white/10 font-mono rounded-2xl overflow-hidden" style={{ containerType: "inline-size" }}>
             <motion.div
               key={selected.title}
-              initial={{ scale: 1.05, filter: "blur(5px)" }}
-              animate={{ scale: 1, filter: "blur(0px)" }}
+              initial={{ scale: 1.05 }}
+              animate={{ scale: 1 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="relative flex flex-col w-full h-full p-10 justify-between items-center"
+              style={{
+                fontSize: "clamp(0.625rem, 4cqw, 1rem)",
+                padding: "clamp(1rem, 10cqw, 2.5rem)"
+              }}
             >
               <div className="absolute z-0 inset-0">
                 <LiquidChrome
@@ -161,7 +165,7 @@ export default function ProjectCarousel() {
                 />
               </div>
 
-              <div className="relative z-10 flex w-full justify-between">
+              <div className="relative z-10 flex w-full justify-between whitespace-nowrap">
                 <span>{selected.title.toUpperCase()}</span>
                 <span>{selected.class.toUpperCase()}</span>
               </div>
