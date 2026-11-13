@@ -1,0 +1,3 @@
+[phases.setup]
+nixPkgsArchive = "master"
+nixPkgs = ["nodejs_22", "npm-9_x"]
