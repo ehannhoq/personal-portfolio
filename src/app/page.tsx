@@ -1,69 +1,160 @@
-import Image from "next/image";
+'use client'
+
+import ContactForm from "@/components/contact-form";
+import ExperienceCarousel from "@/components/experience-carousel";
+import HolographicReferralCard from "@/components/holographic-referral-card";
+import ProjectCarousel from "@/components/project-carousel";
+import ScrollProgressBar from "@/components/scroll-progress-bar";
+import { motion, useScroll, useMotionValueEvent, progress } from "motion/react";
+import { section } from "motion/react-client";
+import { useRef, useState } from "react";
+
+const SECTIONS = [
+  {
+    label: "Introduction",
+    progress: 0,
+    id: 1
+  },
+  {
+    label: "Projects",
+    progress: 0.33,
+    id: 2
+  },
+  {
+    label: "Experience",
+    progress: 0.67,
+    id: 3
+  },
+  {
+    label: "Contact",
+    progress: 0.99,
+    id: 4
+  }
+]
 
 export default function Home() {
+  const target = useRef(null);
+
+  const [ scrollProgress, setScrollProgress ] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: target,
+    offset: ['start start', 'end end']
+  });
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    setScrollProgress(0);
+    for (const section of SECTIONS) {
+      if (section.progress < latest) {
+        setScrollProgress(section.id)
+      }
+    }
+  })
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div ref={target} className="w-[calc(100%-300px)] mx-auto h-[200vh] text-amber-50 font-pixel scrollbar-none [&::-webkit-scrollbar]:hidden">
+      <div className="sticky top-0 w-full h-screen flex items-center justify-center">
+        {scrollProgress != 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 1,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="absolute inset-0 z-10 w-full flex items-center justify-center pointer-events-none"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <ScrollProgressBar progress={scrollYProgress} sections={SECTIONS}/>
+          </motion.div>
+        )}
+
+        <motion.div 
+          initial={{ opacity: 1 }}
+          animate={{ opacity: scrollProgress != 0 ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 w-full h-screen"
+        >
+          <span
+            className="absolute w-75 h-75 bg-amber-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{
+                mask: `url(/signature.png) center / contain no-repeat`,
+                WebkitMask: `url(/signature.png) center / contain no-repeat`,
+            }}
+          />
+
+          <span
+            className="absolute w-10 h-10 bg-amber-50 left-1/2 bottom-20 -translate-x-1/2"
+            style={{
+                mask: `url(/down_arrow.svg) center / contain no-repeat`,
+                WebkitMask: `url(/down_arrow.svg) center / contain no-repeat`,
+            }}
+          />
+        </motion.div>
+
+        {scrollProgress == 1 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 1,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="absolute inset-0 w-full flex items-center justify-center"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <div className="w-full flex justify-center items-center flex-col">
+              <div>
+                <p className="text-6xl font-bold">ehan haque</p>
+                <p>software developer, machine learning engineer, game developer</p>
+              </div>
+            </div>
+            <div className="w-full flex justify-center items-center text-amber">
+              <HolographicReferralCard image="/IMG_7577.jpg" title="University of Vermont" description="Senior"/>
+            </div>
+          </motion.div>
+        )}
+
+        {scrollProgress == 2 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 1,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="absolute inset-0 w-full flex items-center"
+          >
+            <ProjectCarousel/>
+          </motion.div>
+        )}
+
+        {scrollProgress == 3 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 1,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="absolute inset-0 w-full flex items-center"
+          >
+            <ExperienceCarousel/>
+          </motion.div>
+        )}
+
+        {scrollProgress == 4 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              duration: 1,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            className="absolute inset-0 w-full flex justify-center items-center"
+          >
+            <ContactForm/>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
