@@ -40,7 +40,7 @@ export default function ProjectCard(projectCardProp: ProjectCardProp) {
                 <div className="w-full h-[70%] flex flex-col gap-10">
                     <div className="w-full flex justify-between">
                         <p>{projectCardProp.title}</p>
-                        <p>{projectCardProp.class}</p>
+                        <p className="text-right">{projectCardProp.class}</p>
                     </div>
 
                     <div className="w-full relative flex-1 min-h-0">

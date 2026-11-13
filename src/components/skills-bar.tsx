@@ -41,7 +41,7 @@ function Icon({ name }: { name: string }) {
 
     return (
         <motion.div
-            className="h-7.5 w-7.5 cursor-pointer relative"
+            className="w-full aspect-square cursor-pointer relative"
             style={{ transform }}
             onPointerEnter={onPointerEnter}
             onPointerLeave={onPointerLeave}
@@ -67,18 +67,22 @@ function Icon({ name }: { name: string }) {
 
 export default function SkillsBar({ languages, skills }: { languages: string[] | undefined, skills: string[] | undefined } ) {
     return (
-        <div className="w-full flex justify-center items-center gap-8">
+        <div className="w-full flex flex-wrap justify-center items-center gap-4 sm:gap-8">
             { skills && (
-                <div className="flex justify-center items-center gap-4">
+                <div className="flex flex-1 justify-center items-center gap-2 sm:gap-4" style={{ minWidth: skills.length * 28 }}>
                     {skills.map((skill) => (
-                        <Icon key={skill} name={skill}/>
+                        <div key={skill} className="flex-1 min-w-0 max-w-7.5">
+                            <Icon name={skill}/>
+                        </div>
                     ))}
                 </div>
             )}
             { languages && (
-                <div className="flex justify-center items-center gap-4">
+                <div className="flex flex-1 justify-center items-center gap-2 sm:gap-4" style={{ minWidth: languages.length * 28 }}>
                     {languages.map((language) => (
-                        <Icon key={language} name={language}/>
+                        <div key={language} className="flex-1 min-w-0 max-w-7.5">
+                            <Icon name={language}/>
+                        </div>
                     ))}
                 </div>
             )}

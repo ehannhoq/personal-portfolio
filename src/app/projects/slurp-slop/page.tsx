@@ -20,7 +20,7 @@ export default async function Page() {
                 <BackButton scrollPercentage={0.33}/>
             </div>                
             
-            <div className="w-[40%] h-[80%]">
+            <div className="w-[45%] aspect-2/3 min-w-0 shrink-0">
                 <ReactiveCard>
                     <ProjectCard
                         title="SLURP SLOP"
@@ -39,7 +39,7 @@ export default async function Page() {
                 </ReactiveCard>
             </div>
 
-            <div className="w-[55%] h-[80%] flex flex-col font-pixel justify-between p-4 gap-6">
+            <div className="w-[45%] aspect-2/3 flex flex-col font-pixel justify-between p-4 gap-6 overflow-auto">
                 <p className="font-pixel text-5xl">SLURP SLOP</p>
 
                 <div className="flex flex-col gap-6">

@@ -162,7 +162,7 @@ export default function ExperienceCarousel() {
                 )}
               </div>
 
-              <div className="relative z-10">
+              <div className="h-[1.2em] relative z-10">
                 <SkillsBar
                   skills={['express.js', 'next.js', 'tailwind_css']}
                   languages={['html', 'css', 'javascript', 'typescript']}
